@@ -14,7 +14,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 11, *) {
-        	navigationController?.navigationBar.prefersLargeTitles = false
+            navigationController?.navigationBar.prefersLargeTitles = false
         }
         title =  checklist.name
     }
@@ -55,7 +55,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
         let item = checklist.items[indexPath.row]
-		configureText(for: cell, with: item)
+        configureText(for: cell, with: item)
         configureCheckmark(for: cell, with: item)
         return cell
     }
@@ -72,8 +72,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let item = checklist.items.remove(at: indexPath.row)
-            item.scheduleNotification()
+            checklist.items.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
@@ -90,12 +89,11 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     func configureText(for cell: UITableViewCell, with item: ChecklistItem) {
         let label = cell.viewWithTag(1001) as! UILabel
         label.text = item.text
-        label.text = "\(item.text) itemID: \(item.itemID)"
     }
     
     // MARK:- Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-	// the parameter sender is the reference that triggered the segue
+        // the parameter sender is the reference that triggered the segue
         
         if segue.identifier == "AddItem" || segue.identifier == "EditItem" {
             let controller = segue.destination as! ItemDetailViewController

@@ -23,6 +23,9 @@ class ChecklistItem : NSObject, Codable {
     
     func toogleChecked() {
         checked.toggle()
+        if checked {
+            removeNotification()
+        }
     }
     
     func scheduleNotification() {
@@ -41,11 +44,15 @@ class ChecklistItem : NSObject, Codable {
             let center = UNUserNotificationCenter.current()
             center.add(request)
             print("Scheduled: \(request) for itemID: \(itemID)")
-        } 
+        }
     }
     
     func removeNotification() {
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: [String(itemID)])
+    }
+    
+    deinit {
+        removeNotification()
     }
 }
