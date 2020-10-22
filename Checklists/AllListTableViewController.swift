@@ -74,7 +74,7 @@ class AllListTableViewController: UITableViewController, ListDetailViewControlle
         if list.items.count == 0 {
             cell.detailTextLabel?.text = "(No iItem)"
         }
-        
+        cell.imageView!.image = UIImage(named: list.iconName)
         return cell
     }
     

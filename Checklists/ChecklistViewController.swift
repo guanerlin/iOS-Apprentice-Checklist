@@ -72,7 +72,8 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            checklist.items.remove(at: indexPath.row)
+            let item = checklist.items.remove(at: indexPath.row)
+            item.scheduleNotification()
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
@@ -89,6 +90,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     func configureText(for cell: UITableViewCell, with item: ChecklistItem) {
         let label = cell.viewWithTag(1001) as! UILabel
         label.text = item.text
+        label.text = "\(item.text) itemID: \(item.itemID)"
     }
     
     // MARK:- Navigation
